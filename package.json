@@ -1,0 +1,63 @@
+{
+    "name": "@kabeep/node-translate-i18n",
+    "version": "0.0.1",
+    "type": "module",
+    "description": "A command-line interface tool for translating localization files to other languages.",
+    "main": "./dist/src/index.js",
+    "types": "./dist/src/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "bin": {
+        "localize": "./dist/bin/cli.js"
+    },
+    "scripts": {
+        "docs": "jsdoc -c jsdoc.config.json",
+        "lint": "xo src/**/*.ts --fix",
+        "pretest": "npm run lint",
+        "test": "vitest run",
+        "coverage": "vitest run --coverage",
+        "watch": "tsup --watch",
+        "watch:test": "vitest",
+        "build": "tsup --dts --treeshake smallest",
+        "prepare": "husky"
+    },
+    "devDependencies": {
+        "@types/node": "^20.12.7",
+        "@types/yargs": "^17.0.32",
+        "@vitest/coverage-istanbul": "^1.5.1",
+        "docdash": "^2.0.2",
+        "husky": "^9.0.11",
+        "jsdoc": "^4.0.2",
+        "ts-node": "^10.9.2",
+        "tsup": "^8.0.2",
+        "typescript": "^5.4.5",
+        "vitest": "^1.5.1",
+        "xo": "^0.58.0"
+    },
+    "dependencies": {
+        "@kabeep/exception": "^1.2.3",
+        "@kabeep/node-translate": "^1.1.2",
+        "ora": "^8.0.1",
+        "os-locale": "^6.0.2",
+        "yargs": "^17.7.2"
+    },
+    "author": "Zhang Zixin (kabeep)",
+    "homepage": "https://github.com/kabeep/node-translate-i18n#readme",
+    "repository": "git@github.com:kabeep/node-translate-i18n.git",
+    "bugs": "https://github.com/kabeep/node-translate-i18n/issue",
+    "keywords": [
+        "node",
+        "translate",
+        "i18n",
+        "internationalization",
+        "cli",
+        "locale",
+        "localization",
+        "translation"
+    ],
+    "engines": {
+        "node": ">=16"
+    },
+    "license": "MIT"
+}
