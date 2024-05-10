@@ -1,5 +1,5 @@
-import logSymbols from 'log-symbols';
 import path from 'node:path';
+import logSymbols from 'log-symbols';
 import ora from 'ora';
 import { trace, write } from '../helper/index.js';
 import locale from '../locale/index.js';

@@ -28,7 +28,7 @@ async function task({ rewrite, targetPath, source, from, to }: Options) {
             };
         });
 
-        return trans(from, to, list);
+        return await trans(from, to, list);
     } catch (error) {
         const { message } = error as Error;
         switch (message) {

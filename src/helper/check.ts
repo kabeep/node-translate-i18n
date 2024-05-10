@@ -5,7 +5,7 @@ function check(relativePath: string) {
     try {
         const { filepath } = trace(relativePath);
         return fs.existsSync(filepath);
-    } catch (err: unknown) {
+    } catch {
         return false;
     }
 }
