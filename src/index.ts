@@ -1,5 +1,2 @@
-function greet() {
-    console.log('Hello world!');
-}
-
-export default greet;
+export { default as locale } from './locale/index.js';
+export { default } from './pipeline/index.js';
