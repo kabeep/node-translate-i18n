@@ -6,7 +6,16 @@ A command-line interface tool for translating localization files to other langua
 
 ---
 
+[![NodeJS](https://img.shields.io/node/v/%40kabeep%2Fnode-translate-i18n?color=lightseagreen)](https://nodejs.org/docs/latest/api/)
+[![License](https://img.shields.io/github/license/kabeep/node-translate-i18n?color=slateblue)](LICENSE)
+[![NPM](https://img.shields.io/npm/d18m/%40kabeep%2Fnode-translate-i18n?color=cornflowerblue)](https://www.npmjs.com/package/@kabeep/node-translate-i18n)
+[![Codecov](https://img.shields.io/codecov/c/github/kabeep/node-translate-i18n?logo=codecov&color=mediumvioletred)](https://codecov.io/gh/kabeep/node-translate-i18n)
+[![Codacy](https://img.shields.io/codacy/grade/dfc924592ec54c55bcd4f5ed940065b9?logo=codacy&logoColor=dodgerblue&color=dodgerblue)](https://app.codacy.com/gh/kabeep/node-translate-i18n/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/Qh23T2Zgw4Fy4V8uvKaymp/SM7PbTQQQRHifxy6jgNcTm/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/Qh23T2Zgw4Fy4V8uvKaymp/SM7PbTQQQRHifxy6jgNcTm/tree/main)
+
 English | [简体中文](README.zh-CN.md)
+
+![Alt](https://repobeats.axiom.co/api/embed/eb1e5895d457cb227266870e7461139852ca040c.svg "Repobeats analytics image")
 
 </div>
 
@@ -40,28 +49,79 @@ pnpm add @kabeep/node-translate-i18n
 ```javascript
 import localize from '@kabeep/node-translate-i18n';
 
-localize({ from: 'en-US', to: 'zh-CN' });
+localize({
+    _: ['./src/locale/en-US.ts'],
+    to: ['zh-CN', 'ja-JP'],
+    rewrite: true,
+})
+    .then(console.log)
+    .catch(console.error);
 ```
 
 #### Using in terminal
 
 ```shell
-localize -f "en-US" -t "zh-CN"
+localize ./en-US.ts -t "zh-CN" "ja-JP" -r
+```
+
+```text
+Usage: localize <path> [options]
+
+options：
+  -t, --to       Target language, specified as ISO 639-1 code  [array] [required]
+  -r, --rewrite  Overwrite the file or phrase if it exists     [boolean] [default: false]
+  -v, --version  Show version number                           [boolean]
+  -h, --help     Show help                                     [boolean]
+
+examples：
+  localize ./en-US.js -t zh-CN     Use javascript locale files
+  localize ./en-US.ts -t zh-CN     Use typescript locale files
+  localize ./en-US.json -t zh-CN   Use json locale file
+  localize ./en-US.ts -t zh-CN -r  Overwrite an existing file or phrase
 ```
 
 ## 🪄 Examples
 
-#### Directory tree
+#### Append
 
 ```shell
 # locale
-# ├── en-US.js
+#   ├── en-US.js (1 row)
+# =>
+# locale
+#   ├── en-US.js (1 row)
+# + ├── zh-CN.js (1 row)
+localize ./locale/en-US.js -t "zh-CN"
 ```
 
-#### Usage of language code
+#### Diff
 
 ```shell
-localize -f "en-US" -t "zh-CN"
+# locale
+#   ├── en-US.js (2 row)
+#   ├── zh-CN.js (1 row)
+#   ├── ja-JP.js (2 row)
+# =>
+# locale
+#   ├── en-US.js (2 row)
+# M ├── zh-CN.js (2 row)
+#   ├── ja-JP.js (2 row)
+localize ./locale/en-US.js -t "zh-CN" "ja-JP"
+```
+
+#### Rewrite
+
+```shell
+# locale
+#   ├── en-US.js (2 row)
+#   ├── zh-CN.js (2 row)
+#   ├── ja-JP.js (2 row)
+# =>
+# locale
+#   ├── en-US.js (2 row)
+# M ├── zh-CN.js (2 row)
+# M ├── ja-JP.js (2 row)
+localize ./locale/en-US.js -t "zh-CN" "ja-JP" -r
 ```
 
 ## 🔗 Related
