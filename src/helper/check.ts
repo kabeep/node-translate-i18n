@@ -1,9 +1,13 @@
 import fs from 'node:fs';
-import path from 'node:path';
-import { currentWorkDirectory } from '../shared/index.js';
+import trace from './trace.js';
 
-function check(filepath: string) {
-    return fs.existsSync(path.resolve(currentWorkDirectory, filepath));
+function check(relativePath: string) {
+    try {
+        const { filepath } = trace(relativePath);
+        return fs.existsSync(filepath);
+    } catch (err: unknown) {
+        return false;
+    }
 }
 
 export default check;

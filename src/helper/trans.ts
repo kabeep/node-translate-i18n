@@ -1,7 +1,7 @@
 import translate from '@kabeep/node-translate';
 import type { LocaleOption } from '../shared/index.js';
 
-async function task(from: string, to: string, option: LocaleOption) {
+async function handleTrans(from: string, to: string, option: LocaleOption) {
     if (!option.toTrans || !option.value) return option;
 
     const translation = await translate(option.value, { from, to, retry: 2 });
@@ -15,7 +15,7 @@ async function task(from: string, to: string, option: LocaleOption) {
 }
 
 async function trans(from: string, to: string, source: LocaleOption[]) {
-    const tasks = source.map((option) => async () => task(from, to, option));
+    const tasks = source.map((option) => async () => handleTrans(from, to, option));
 
     let count = 0;
     const lines: LocaleOption[] = [];

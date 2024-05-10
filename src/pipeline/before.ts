@@ -1,7 +1,6 @@
-import path from 'node:path';
-import { check, read } from '../helper/index.js';
+import { check, read, trace } from '../helper/index.js';
 import locale from '../locale/index.js';
-import { type ArgumentVector, type Context, currentWorkDirectory } from '../shared/index.js';
+import { type ArgumentVector, type Context } from '../shared/index.js';
 import { getCode, withBoundary } from '../utils/index.js';
 
 export interface CodeOption {
@@ -9,23 +8,21 @@ export interface CodeOption {
     shorten?: string;
 }
 
-async function before({ _, to }: Pick<ArgumentVector, '_' | 'to'>, context: Context) {
+function before({ _, to }: Pick<ArgumentVector, '_' | 'to'>, context: Context) {
     if (!check(_[0])) {
         throw new Error(`${locale.CMD_ERR_FILE_NOT_FOUND} - ${_[0]}`);
     }
 
-    const extension = path.extname(_[0]);
+    const { prefix, suffix, filepath, directory, extension } = trace(_[0]);
     if (!['.js', '.ts', '.json'].includes(extension)) {
         throw new Error(`${locale.CMD_ERR_INVALID_EXTENSION} - ${extension}`);
     }
 
+    context.directory = directory;
     context.extension = extension.slice(1) as 'js' | 'ts' | 'json';
+    context.suffix = suffix;
 
-    const basename = path.basename(_[0], extension);
-    const [firstname, ...lastname] = basename.split('.');
-    context.suffix = lastname.length > 0 ? `.${lastname.join('.')}` : '';
-
-    const from = getCode(firstname, { detect: true, shorten: true });
+    const from = getCode(prefix, { detect: true, shorten: true });
     if (!from) {
         throw new Error(`${locale.CMD_ERR_INVALID_CODE} - from`);
     }
@@ -50,10 +47,7 @@ async function before({ _, to }: Pick<ArgumentVector, '_' | 'to'>, context: Cont
         throw new Error(`${locale.CMD_ERR_INVALID_CODE} - to`);
     }
 
-    const directory = path.resolve(currentWorkDirectory, _[0]);
-    context.directory = path.dirname(directory);
-
-    const source = read(directory);
+    const source = read(filepath);
 
     return { source, options };
 }

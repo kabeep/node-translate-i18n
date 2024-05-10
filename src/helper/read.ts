@@ -24,8 +24,8 @@ function read(filepath: string) {
         const regex = /['"]?(\S+)['"]?:\s?["']([^"']+)["']/g;
         const pair = regex.exec(content);
         if (pair?.length) {
-            record.key = pair[1] ?? '';
-            record.value = pair[2] ?? '';
+            record.key = pair[1];
+            record.value = pair[2];
             record.toTrans = true;
         }
 

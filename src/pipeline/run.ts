@@ -1,12 +1,12 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import logSymbols from 'log-symbols';
+import path from 'node:path';
 import ora from 'ora';
-import { read, trans, write } from '../helper/index.js';
+import { trace, write } from '../helper/index.js';
 import locale from '../locale/index.js';
 import type { Context, LocaleOption } from '../shared/index.js';
-import { withBoundary } from '../utils/index.js';
+import { isError, withBoundary } from '../utils/index.js';
 import type { CodeOption } from './before.js';
+import task from './task.js';
 
 interface Options {
     source: LocaleOption[];
@@ -24,31 +24,30 @@ async function run({ source, options }: Options, context: Context) {
             continue;
         }
 
-        const targetFilename = `${code}${suffix}.${extension}`;
-        const targetFilepath = path.resolve(directory, targetFilename);
-
-        const list = source.map((option) => {
-            if (!option.toTrans || rewrite) return option;
-
-            const targetOptions = fs.existsSync(targetFilepath) ? read(targetFilepath) : [];
-            const current = targetOptions.find((item) => item.key === option.key);
-            if (!current) return option;
-
-            return {
-                ...option,
-                original: current.original,
-                value: current.value,
-                toTrans: false,
-            };
+        const { fullName: targetName, filepath: targetPath } = trace(
+            path.resolve(directory, `${code}${suffix}.${extension}`),
+        );
+        const result = await task({
+            rewrite,
+            targetPath,
+            source,
+            from,
+            to,
         });
 
-        const { count, lines } = await trans(from, to, list);
+        if (isError(result)) {
+            spinner.fail(`${result.message} - ${code}`);
+            continue;
+        }
+
+        const { count, lines } = result;
+
         if (lines.length !== source.length) {
             spinner.fail(`${locale.CMD_ERR_TRANSLATE} - ${code}`);
             continue;
         }
 
-        spinner.text = `${locale.CMD_ORA_WRITE} - ${targetFilename}`;
+        spinner.text = `${locale.CMD_ORA_WRITE} - ${targetName}`;
         const suffixText = `(${count}/${length})`;
         spinner.suffixText = suffixText;
 
@@ -57,11 +56,11 @@ async function run({ source, options }: Options, context: Context) {
             spinner.color = 'yellow';
         }
 
-        write(path.resolve(directory, targetFilename), lines);
+        write(targetPath, lines);
 
         spinner.stopAndPersist({
             symbol: isPartial ? logSymbols.warning : logSymbols.success,
-            text: `${locale.CMD_ORA_SUCCESS} - ${targetFilename}`,
+            text: `${locale.CMD_ORA_SUCCESS} - ${targetName}`,
             suffixText,
         });
     }
