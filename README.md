@@ -67,17 +67,18 @@ localize ./en-US.ts -t "zh-CN" "ja-JP" -r
 ```text
 Usage: localize <path> [options]
 
-options：
-  -t, --to       Target language, specified as ISO 639-1 code  [array] [required]
-  -r, --rewrite  Overwrite the file or phrase if it exists     [boolean] [default: false]
-  -v, --version  Show version number                           [boolean]
-  -h, --help     Show help                                     [boolean]
+Options:
+  -t, --to       Target language, specified as ISO 639-1 code [array] [required]
+  -r, --rewrite  Overwrite the file or phrase if it exists
+                                                      [boolean] [default: false]
+  -v, --version  Show version number                                   [boolean]
+  -h, --help     Show help                                             [boolean]
 
-examples：
+Examples:
+  localize ./en-US.ts -t zh-CN -r  Overwrite an existing file or phrase
   localize ./en-US.js -t zh-CN     Use javascript locale files
   localize ./en-US.ts -t zh-CN     Use typescript locale files
   localize ./en-US.json -t zh-CN   Use json locale file
-  localize ./en-US.ts -t zh-CN -r  Overwrite an existing file or phrase
 ```
 
 ## 🪄 Examples
