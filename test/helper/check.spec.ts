@@ -12,3 +12,9 @@ test('check - should return false if file does not exist', () => {
     const result = check(relativePath);
     expect(result).toBe(false);
 });
+
+test('check - should return false if relative path is invalid', () => {
+    const relativePath = undefined;
+    const result = check(relativePath);
+    expect(result).toBe(false);
+});
