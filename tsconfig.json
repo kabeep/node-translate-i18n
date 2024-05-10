@@ -19,8 +19,9 @@
     ],
     "exclude": [
         "node_modules",
-        "example",
-        "dist"
+        "dist",
+        "docs",
+        "test"
     ],
     "ts-node": {
         "esm": true
