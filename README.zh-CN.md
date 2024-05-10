@@ -17,6 +17,8 @@
 
 ![Alt](https://repobeats.axiom.co/api/embed/eb1e5895d457cb227266870e7461139852ca040c.svg "Repobeats analytics image")
 
+<img width="814" src="docs/images/helper.png" alt="help-information">
+
 </div>
 
 ## 📖 简介
@@ -42,6 +44,8 @@ pnpm add @kabeep/node-translate-i18n
 ```
 
 ## 🚀 使用
+
+<img width="814" src="docs/images/usage.gif" alt="usage-gif">
 
 #### 在 Javascript 中使用
 
@@ -84,6 +88,9 @@ localize ./en-US.ts -t "zh-CN" "ja-JP" -r
 
 #### 新增
 
+> 对于不存在的本地化文件，cli 会使用由源文件翻译的译本创建并写入新的文件
+> （文件名来自 to 参数）。
+
 ```shell
 # locale
 #   ├── en-US.js (1 row)
@@ -95,6 +102,9 @@ localize ./locale/en-US.js -t "zh-CN"
 ```
 
 #### Diff
+
+> 当 `to` 参数中的本地化文件已存在时，会通过 `diff` 仅写入新增的短语。
+> 这在已经通过更准确的翻译结果手动修改过某些短语时非常实用。
 
 ```shell
 # locale
@@ -111,6 +121,8 @@ localize ./locale/en-US.js -t "zh-CN" "ja-JP"
 
 #### 覆写
 
+> 当 `to` 参数中的本地化文件已存在时，会覆写已存在的短语。
+
 ```shell
 # locale
 #   ├── en-US.js (2 row)
@@ -122,6 +134,60 @@ localize ./locale/en-US.js -t "zh-CN" "ja-JP"
 # M ├── zh-CN.js (2 row)
 # M ├── ja-JP.js (2 row)
 localize ./locale/en-US.js -t "zh-CN" "ja-JP" -r
+```
+
+## 🔩 支持的 `to` 参数
+
+- [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php)
+
+```text
+en, zh, ru, ...
+```
+
+- [RFC 4647](https://www.rfc-editor.org/rfc/rfc4647.txt)
+  （[ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php)，
+  [ISO 15924](https://unicode.org/iso15924/iso15924-codes.html)
+  与 [ISO 3166-1](https://www.iso.org/obp/ui/#search) 的任意组合）
+
+```text
+en-US, zh-CN, zh-TW, ru-RU, ...
+```
+
+- 自定义的文件后缀
+
+```text
+en-US.locale, zh-CN.locale, zh-TW.locale, ru-RU.locale, ...
+```
+
+## 📄 支持的文件类型
+
+- Javascript
+- Typescript
+- JSON
+
+## </> 支持的代码风格
+
+不限制层级的键值对，可以参考
+[format.js document](https://formatjs.io/docs/core-concepts/basic-internationalization-principles/)
+或者 [polyglot.js document](https://airbnb.io/polyglot.js/)
+
+以下是一个示例：
+
+```json
+{
+    "GREETING": "Hello {name}!"
+}
+```
+
+或者
+
+```javascript
+export default {
+    "GREETING": "Hello world!",
+    "DICTIONARY": {
+        "GRETTING": "Hello {{name}}!"
+    }
+}
 ```
 
 ## 🔗 关联库

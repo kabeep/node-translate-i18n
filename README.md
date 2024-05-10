@@ -17,6 +17,8 @@ English | [简体中文](README.zh-CN.md)
 
 ![Alt](https://repobeats.axiom.co/api/embed/eb1e5895d457cb227266870e7461139852ca040c.svg "Repobeats analytics image")
 
+<img width="814" src="docs/images/helper.png" alt="help-information">
+
 </div>
 
 ## 📖 Introduction
@@ -27,6 +29,10 @@ English | [简体中文](README.zh-CN.md)
 >
 > With a simple command-line interface, you can quickly convert your project's localization files into the desired
 > target language, facilitating cross-language i18n support in NodeJS project.
+
+
+
+<img width="814" src="docs/images/usage.gif" alt="usage-gif">
 
 ## ⚙️ Installation
 
@@ -85,6 +91,10 @@ Examples:
 
 #### Append
 
+> For localized files that do not exist,
+> the cli will create and write a new file using the translation from the source file.
+> (The file name comes from the `to` parameter).
+
 ```shell
 # locale
 #   ├── en-US.js (1 row)
@@ -96,6 +106,11 @@ localize ./locale/en-US.js -t "zh-CN"
 ```
 
 #### Diff
+
+> When the localization file in the `to` parameter already exists,
+> only the new phrases will be written via `diff`.
+> This is useful when certain phrases have been manually modified
+> with more accurate translation results.
 
 ```shell
 # locale
@@ -112,6 +127,9 @@ localize ./locale/en-US.js -t "zh-CN" "ja-JP"
 
 #### Rewrite
 
+> When the localization file in the `to` parameter already exists,
+> the existing phrase will be overwritten.
+
 ```shell
 # locale
 #   ├── en-US.js (2 row)
@@ -123,6 +141,57 @@ localize ./locale/en-US.js -t "zh-CN" "ja-JP"
 # M ├── zh-CN.js (2 row)
 # M ├── ja-JP.js (2 row)
 localize ./locale/en-US.js -t "zh-CN" "ja-JP" -r
+```
+
+## 🔩 Supported `to` parameters
+
+- [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php)
+
+```text
+en, zh, ru, ...
+```
+
+- [RFC 4647](https://www.rfc-editor.org/rfc/rfc4647.txt)
+  （Any combination with [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php)，
+  [ISO 15924](https://unicode.org/iso15924/iso15924-codes.html)
+  and [ISO 3166-1](https://www.iso.org/obp/ui/#search)）
+
+```text
+en-US, zh-CN, zh-TW, ru-RU, ...
+```
+
+- Custom file suffix
+
+```text
+en-US.locale, zh-CN.locale, zh-TW.locale, ru-RU.locale, ...
+```
+
+## 📄 Supported file extensions
+
+- Javascript
+- Typescript
+- JSON
+
+## </> Supported code styles
+
+Unlimited key-value pairs can be viewed
+[format.js docs](https://formatjs.io/docs/core-concepts/basic-internationalization-principles/)
+or [polyglot.js docs](https://airbnb.io/polyglot.js/)
+
+Here is an example:
+
+```json
+{
+    "GREETING": "Hello {{name}}"
+}
+```
+
+or
+
+```javascript
+export default {
+    "GREETING": "Hello {{name}}"
+}
 ```
 
 ## 🔗 Related
