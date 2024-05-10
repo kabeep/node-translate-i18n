@@ -23,7 +23,7 @@ async function before({ _, to }: Pick<ArgumentVector, '_' | 'to'>, context: Cont
 
     const basename = path.basename(_[0], extension);
     const [firstname, ...lastname] = basename.split('.');
-    context.suffix = lastname.length ? `.${lastname.join('.')}` : '';
+    context.suffix = lastname.length > 0 ? `.${lastname.join('.')}` : '';
 
     const from = getCode(firstname, { detect: true, shorten: true });
     if (!from) {

@@ -1,6 +1,6 @@
-import logSymbols from 'log-symbols';
 import fs from 'node:fs';
 import path from 'node:path';
+import logSymbols from 'log-symbols';
 import ora from 'ora';
 import { read, trans, write } from '../helper/index.js';
 import locale from '../locale/index.js';
@@ -62,7 +62,7 @@ async function run({ source, options }: Options, context: Context) {
         spinner.stopAndPersist({
             symbol: isPartial ? logSymbols.warning : logSymbols.success,
             text: `${locale.CMD_ORA_SUCCESS} - ${targetFilename}`,
-            suffixText: suffixText,
+            suffixText,
         });
     }
 }
