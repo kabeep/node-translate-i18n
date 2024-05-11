@@ -11,6 +11,7 @@ test('write - should write options to file correctly', () => {
             value: '',
             toTrans: false,
             lineNumber: 0,
+            status: true,
         },
         {
             original: "    CMD_DES_TEST: 'This is a test message.',",
@@ -18,6 +19,7 @@ test('write - should write options to file correctly', () => {
             value: 'This is a test message.',
             toTrans: true,
             lineNumber: 1,
+            status: true,
         },
         {
             original: '};',
@@ -25,6 +27,7 @@ test('write - should write options to file correctly', () => {
             value: '',
             toTrans: false,
             lineNumber: 2,
+            status: true,
         },
     ];
 

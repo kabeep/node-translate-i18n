@@ -17,20 +17,18 @@ async function handleTrans(from: string, to: string, option: LocaleOption) {
 async function trans(from: string, to: string, source: LocaleOption[]) {
     const tasks = source.map((option) => async () => handleTrans(from, to, option));
 
-    let count = 0;
     const lines: LocaleOption[] = [];
     await Promise.allSettled(tasks.map(async (task) => task())).then((settledPromises) => {
         for (const settledPromise of settledPromises) {
             if (settledPromise.status === 'fulfilled') {
                 lines.push(settledPromise.value);
-                settledPromise.value.toTrans && count++;
             } else {
-                lines.push(source[lines.length]);
+                lines.push({ ...source[lines.length], status: false });
             }
         }
     });
 
-    return { count, lines };
+    return lines;
 }
 
 export default trans;

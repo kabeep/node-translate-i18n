@@ -13,6 +13,7 @@ test('read - should read and parse file content correctly', () => {
         value: '',
         toTrans: false,
         lineNumber: 0,
+        status: true,
     });
     expect(result[1]).toEqual({
         original: "    CMD_DES_TEST: 'This is a test message.',",
@@ -20,6 +21,7 @@ test('read - should read and parse file content correctly', () => {
         value: 'This is a test message.',
         toTrans: true,
         lineNumber: 1,
+        status: true,
     });
     expect(result[2]).toEqual({
         original: '};',
@@ -27,5 +29,6 @@ test('read - should read and parse file content correctly', () => {
         value: '',
         toTrans: false,
         lineNumber: 2,
+        status: true,
     });
 });

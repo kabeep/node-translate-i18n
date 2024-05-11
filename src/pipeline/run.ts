@@ -27,7 +27,7 @@ async function run({ source, options }: Options, context: Context) {
         const { fullName: targetName, filepath: targetPath } = trace(
             path.resolve(directory, `${code}${suffix}.${extension}`),
         );
-        const result = await task({
+        const lines = await task({
             rewrite,
             targetPath,
             source,
@@ -35,12 +35,10 @@ async function run({ source, options }: Options, context: Context) {
             to,
         });
 
-        if (isError(result)) {
-            spinner.fail(`${result.message} - ${code}`);
+        if (isError(lines)) {
+            spinner.fail(`${lines.message} - ${code}`);
             continue;
         }
-
-        const { count, lines } = result;
 
         if (lines.length !== source.length) {
             spinner.fail(`${locale.CMD_ERR_TRANSLATE} - ${code}`);
@@ -48,18 +46,19 @@ async function run({ source, options }: Options, context: Context) {
         }
 
         spinner.text = `${locale.CMD_ORA_WRITE} - ${targetName}`;
+
+        const count = lines.filter((item) => !item.status).length;
         const suffixText = `(${count}/${length})`;
         spinner.suffixText = suffixText;
 
-        const isPartial = count !== length;
-        if (isPartial) {
+        if (count) {
             spinner.color = 'yellow';
         }
 
         write(targetPath, lines);
 
         spinner.stopAndPersist({
-            symbol: isPartial ? logSymbols.warning : logSymbols.success,
+            symbol: count ? logSymbols.warning : logSymbols.success,
             text: `${locale.CMD_ORA_SUCCESS} - ${targetName}`,
             suffixText,
         });

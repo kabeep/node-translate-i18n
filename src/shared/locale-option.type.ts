@@ -4,4 +4,5 @@ export interface LocaleOption {
     value: string;
     toTrans: boolean;
     lineNumber: number;
+    status: boolean;
 }

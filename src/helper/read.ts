@@ -15,6 +15,7 @@ function read(filepath: string) {
             value: '',
             toTrans: false,
             lineNumber: 0,
+            status: true,
         };
 
         const content = line.toString();
