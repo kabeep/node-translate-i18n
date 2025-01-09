@@ -4,8 +4,6 @@
 
 A command-line interface tool for translating localization files to other languages.
 
----
-
 [![NodeJS](https://img.shields.io/node/v/%40kabeep%2Fnode-translate-i18n?color=lightseagreen)](https://nodejs.org/docs/latest/api/)
 [![License](https://img.shields.io/github/license/kabeep/node-translate-i18n?color=slateblue)](LICENSE)
 [![NPM](https://img.shields.io/npm/d18m/%40kabeep%2Fnode-translate-i18n?color=cornflowerblue)](https://www.npmjs.com/package/@kabeep/node-translate-i18n)
