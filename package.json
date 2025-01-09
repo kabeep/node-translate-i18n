@@ -13,7 +13,6 @@
     },
     "scripts": {
         "dev": "ts-node bin/cli.ts",
-        "docs": "jsdoc -c jsdoc.config.json",
         "lint": "xo src/**/*.ts --fix",
         "pretest": "npm run lint",
         "test": "vitest run",
@@ -28,9 +27,7 @@
         "@types/node": "^20.12.7",
         "@types/yargs": "^17.0.32",
         "@vitest/coverage-istanbul": "^1.5.1",
-        "docdash": "^2.0.2",
         "husky": "^9.0.11",
-        "jsdoc": "^4.0.2",
         "ts-node": "^10.9.2",
         "tsup": "^8.0.2",
         "typescript": "^5.4.5",
