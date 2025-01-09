@@ -6,6 +6,7 @@ function read(filepath: string) {
 
     let line;
     let lineNumber = 0;
+    const keys: string[] = [];
     const list: LocaleOption[] = [];
 
     while ((line = liner.next())) {
@@ -22,10 +23,16 @@ function read(filepath: string) {
         record.original = content;
         record.lineNumber = lineNumber;
 
+        const openBracketKey = /(\w+):\s?{$/.exec(content.trim())?.[1];
+        if (openBracketKey) keys.push(openBracketKey);
+
+        const isCloseBracket = content.trim().startsWith('}');
+        if (isCloseBracket && keys.length > 0) keys.pop();
+
         const regex = /['"]?(\S+)['"]?:\s?["']([^"']+)["']/g;
         const pair = regex.exec(content);
         if (pair?.length) {
-            record.key = pair[1];
+            record.key = [...keys, pair[1]].join('.');
             record.value = pair[2];
             record.toTrans = true;
         }
