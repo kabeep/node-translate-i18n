@@ -10,6 +10,7 @@ export default {
     CMD_ORA_TRANSLATE: 'फ़ाइल का अनुवाद हो रहा है',
     CMD_ORA_WRITE: 'फ़ाइल लिख रहा हूँ',
     CMD_ORA_SUCCESS: 'सफलतापूर्वक लिखें',
+    CMD_ORA_FAILURE: 'लिखना विफल',
 
     CMD_ERR_PRESET: 'भाषा कोड और फ़ाइलों की पुष्टि करने में समस्या',
     CMD_ERR_TRANSLATE: 'अनुवाद में एक समस्या आई और अनुवाद परिणाम वाक्यांश से मेल नहीं खा सका।',

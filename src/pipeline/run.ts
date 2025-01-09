@@ -47,19 +47,23 @@ async function run({ source, options }: Options, context: Context) {
 
         spinner.text = `${locale.CMD_ORA_WRITE} - ${targetName}`;
 
-        const count = lines.filter((item) => !item.status).length;
-        const suffixText = `(${count}/${length})`;
-        spinner.suffixText = suffixText;
-
-        if (count) {
-            spinner.color = 'yellow';
+        let count = 0;
+        const failures: string[] = [];
+        for (const item of lines) {
+            if (!item.toTrans) continue;
+            count++;
+            !item.status && failures.push(item.key);
         }
+
+        const failCount = failures.length;
+        const suffixText = `(${count - failCount}/${length})`;
+        const status = failCount ? (failCount === count ? 'error' : 'warning') : 'success';
 
         write(targetPath, lines);
 
         spinner.stopAndPersist({
-            symbol: count ? logSymbols.warning : logSymbols.success,
-            text: `${locale.CMD_ORA_SUCCESS} - ${targetName}`,
+            symbol: logSymbols[status],
+            text: `${status === 'error' ? locale.CMD_ORA_FAILURE : locale.CMD_ORA_SUCCESS} - ${targetName}`,
             suffixText,
         });
     }

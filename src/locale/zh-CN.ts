@@ -10,6 +10,7 @@ export default {
     CMD_ORA_TRANSLATE: '正在翻译文件',
     CMD_ORA_WRITE: '正在写入文件',
     CMD_ORA_SUCCESS: '写入成功',
+    CMD_ORA_FAILURE: '写入失败',
 
     CMD_ERR_PRESET: '确认语言代码和文件时遇到问题',
     CMD_ERR_TRANSLATE: '翻译遇到问题，翻译结果无法与短语匹配',

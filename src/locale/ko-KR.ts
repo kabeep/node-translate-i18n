@@ -10,6 +10,7 @@ export default {
     CMD_ORA_TRANSLATE: '파일 번역 중',
     CMD_ORA_WRITE: '파일 작성 중',
     CMD_ORA_SUCCESS: '성공적으로 작성',
+    CMD_ORA_FAILURE: '쓰기 실패',
 
     CMD_ERR_PRESET: '언어 코드 및 파일 확인 문제',
     CMD_ERR_TRANSLATE: '번역에 문제가 발생하여 번역 결과가 구문과 일치하지 않습니다.',

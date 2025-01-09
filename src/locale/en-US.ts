@@ -10,6 +10,7 @@ export default {
     CMD_ORA_TRANSLATE: 'Translating file',
     CMD_ORA_WRITE: 'Writing file',
     CMD_ORA_SUCCESS: 'Write successfully',
+    CMD_ORA_FAILURE: 'Write failed',
 
     CMD_ERR_PRESET: 'Problem confirming language codes and files',
     CMD_ERR_TRANSLATE: 'The translation encountered a problem and the translation result could not match the phrase.',
