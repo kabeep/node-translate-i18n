@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="814" src="docs/images/logo.png" alt="logo">
+<img width="630" src="docs/images/logo.png" alt="logo">
 
 用于将本地化文件翻译为其他语言的命令行界面工具。
 

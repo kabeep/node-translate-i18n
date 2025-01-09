@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="814" src="docs/images/logo.png" alt="logo">
+<img width="630" src="docs/images/logo.png" alt="logo">
 
 A command-line interface tool for translating localization files to other languages.
 
