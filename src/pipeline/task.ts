@@ -12,11 +12,12 @@ interface Options {
 }
 
 async function task({ rewrite, targetPath, source, from, to }: Options) {
+    const targetOptions = check(targetPath) ? read(targetPath) : [];
+
     try {
         const list = source.map((option) => {
             if (!option.toTrans || rewrite) return option;
 
-            const targetOptions = check(targetPath) ? read(targetPath) : [];
             const current = targetOptions.find((item) => item.key === option.key);
             if (!current) return option;
 
