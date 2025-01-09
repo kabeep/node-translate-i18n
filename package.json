@@ -1,6 +1,6 @@
 {
     "name": "@kabeep/node-translate-i18n",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "type": "module",
     "description": "A command-line interface tool for translating localization files to other languages.",
     "main": "./dist/src/index.js",
